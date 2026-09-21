@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dụng cụ học tập – Cửa hàng văn phòng phẩm</title>
+  <!-- Font & icon -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(145deg, #f9f7fe 0%, #eef1fa 100%);
+      color: #1e2b3c;
+      padding: 2rem 1.5rem;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* header */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #2a3f5e, #4f6f9f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+      padding-bottom: 10px;
+      border-bottom: 4px solid #ffb347;
+      border-radius: 4px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #4a5b6e;
+      margin-top: 12px;
+      font-weight: 500;
+    }
+
+    .badge {
+      background: #ffb347;
+      color: #1e2b3c;
+      font-weight: 700;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    /* grid sản phẩm */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    /* card */
+    .product-card {
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 1.5rem 1.2rem 1.8rem;
+      box-shadow: 0 15px 30px -10px rgba(0, 20, 40, 0.15);
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(2px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, #ffb347, #ffd966, #a0c4ff);
+      opacity: 0.8;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 35px -12px rgba(30, 60, 100, 0.25);
+    }
+
+    /* ảnh sản phẩm */
+    .product-img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      margin-bottom: 0.8rem;
+      transition: transform 0.2s;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.1));
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+
+    /* tên sản phẩm */
+    .product-name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1e2b3c;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .product-desc {
+      font-size: 0.9rem;
+      color: #5f6f80;
+      margin-bottom: 0.8rem;
+      font-weight: 500;
+      min-height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+
+    /* giá */
+    .price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #d94f2b;
+      letter-spacing: -0.5px;
+      margin: 0.6rem 0 0.8rem;
+    }
+
+    .price small {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #8a9aa8;
+      text-decoration: line-through;
+      margin-left: 8px;
+    }
+
+    /* nút */
+    .btn-add {
+      background: #1e2b3c;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 16px -6px rgba(30, 43, 60, 0.3);
+      letter-spacing: 0.3px;
+      margin-top: 4px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn-add i {
+      font-size: 1rem;
+    }
+
+    .btn-add:hover {
+      background: #ffb347;
+      color: #1e2b3c;
+      box-shadow: 0 12px 20px -8px #ffb347;
+    }
+
+    /* footer */
+    .footer-note {
+      margin-top: 3.5rem;
+      text-align: center;
+      font-size: 1rem;
+      color: #7f8d9e;
+      border-top: 2px dashed #cdd9e9;
+      padding-top: 2rem;
+      font-weight: 500;
+    }
+
+    .footer-note i {
+      color: #ffb347;
+      margin: 0 6px;
+    }
+
+    /* responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 1.5rem 1rem;
+      }
+      header h1 {
+        font-size: 2.2rem;
+      }
+      .product-grid {
+        gap: 1.5rem;
+      }
+      .product-card {
+        padding: 1.2rem 0.8rem 1.5rem;
+      }
+      .product-img {
+        width: 110px;
+        height: 110px;
+      }
+      .price {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* hình ảnh mang tính minh họa – dùng emoji + ảnh thật từ unsplash */
+    /* một số ảnh dùng unsplash source (sẽ tự load) */
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge"><i class="fas fa-star"></i> Bộ sưu tập mới 2025</div>
+      <h1>✏️ Dụng cụ học tập</h1>
+      <p><i class="fas fa-check-circle" style="color: #4caf50;"></i> Đầy đủ – chất lượng – giá tốt cho học sinh, sinh viên</p>
+    </header>
+
+    <!-- LƯU Ý: Hình ảnh được lấy từ unsplash (đường dẫn ổn định) và thêm emoji minh họa.
+         Mỗi card có một ảnh đại diện. Một số ảnh có thể thay đổi nhưng vẫn đúng chủ đề. -->
+    <div class="product-grid">
+
+      <!-- 1. Bút chì -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1580569214296-5f4b0b0c4b6a?w=300&h=300&fit=crop&auto=format" 
+             alt="Bút chì gỗ cao cấp"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991147.png'">
+        <div class="product-name">Bút chì 2B</div>
+        <div class="product-desc">Gỗ tự nhiên, đầu chì mềm, dễ tẩy xóa</div>
+        <div class="price">15.000đ <small>22.000đ</small></div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 2. Bút bi -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?w=300&h=300&fit=crop&auto=format" 
+             alt="Bút bi xanh"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991154.png'">
+        <div class="product-name">Bút bi Thiên Long</div>
+        <div class="product-desc">Mực xanh êm trơn, viết đẹp, bền màu</div>
+        <div class="price">8.000đ <small>12.000đ</small></div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 3. Thước kẻ -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=300&h=300&fit=crop&auto=format" 
+             alt="Thước kẻ nhựa 20cm"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991173.png'">
+        <div class="product-name">Thước kẻ 20cm</div>
+        <div class="product-desc">Nhựa trong suốt, chia vạch rõ ràng</div>
+        <div class="price">6.000đ</div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 4. Tẩy gôm -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=300&h=300&fit=crop&auto=format" 
+             alt="Cục tẩy trắng"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991136.png'">
+        <div class="product-name">Tẩy gôm trắng</div>
+        <div class="product-desc">Mềm mịn, không để lại vết bẩn trên giấy</div>
+        <div class="price">5.000đ <small>8.000đ</small></div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 5. Compa -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=300&h=300&fit=crop&auto=format" 
+             alt="Compa học sinh"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991129.png'">
+        <div class="product-name">Compa nhựa</div>
+        <div class="product-desc">Vẽ đường tròn chính xác, đầu kim an toàn</div>
+        <div class="price">25.000đ</div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 6. Hộp bút -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1589365278144-8f5c2c6b6b0e?w=300&h=300&fit=crop&auto=format" 
+             alt="Hộp bút vải"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991094.png'">
+        <div class="product-name">Hộp bút vải canvas</div>
+        <div class="product-desc">Nhiều ngăn, khóa kéo bền, in hình dễ thương</div>
+        <div class="price">45.000đ <small>60.000đ</small></div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 7. Sách vở - Tập học sinh -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=300&h=300&fit=crop&auto=format" 
+             alt="Tập vở 200 trang"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991106.png'">
+        <div class="product-name">Tập vở 200 trang</div>
+        <div class="product-desc">Giấy trắng mịn, bìa cứng, kẻ ngang 5mm</div>
+        <div class="price">12.000đ <small>18.000đ</small></div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 8. Bút màu sáp -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1503602642458-232111445657?w=300&h=300&fit=crop&auto=format" 
+             alt="Bút sáp màu"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991099.png'">
+        <div class="product-name">Bút sáp màu 12 cây</div>
+        <div class="product-desc">Màu tươi sáng, an toàn cho trẻ nhỏ</div>
+        <div class="price">38.000đ</div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 9. Bút highlight -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?w=300&h=300&fit=crop&auto=format" 
+             alt="Bút highlight"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991103.png'">
+        <div class="product-name">Bút highlight 6 màu</div>
+        <div class="product-desc">Đánh dấu văn bản, mực không lem</div>
+        <div class="price">55.000đ <small>70.000đ</small></div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 10. Kẹp giấy + ghim bấm -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=300&h=300&fit=crop&auto=format" 
+             alt="Kẹp giấy"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991113.png'">
+        <div class="product-name">Kẹp giấy (hộp 50c)</div>
+        <div class="product-desc">Thép không gỉ, kẹp chắc tài liệu</div>
+        <div class="price">10.000đ</div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 11. Máy tính Casio -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=300&h=300&fit=crop&auto=format" 
+             alt="Máy tính Casio"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991124.png'">
+        <div class="product-name">Máy tính Casio FX-580</div>
+        <div class="product-desc">Học sinh THPT, 400 hàm tích hợp</div>
+        <div class="price">395.000đ <small>450.000đ</small></div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+      <!-- 12. Balo học sinh -->
+      <div class="product-card">
+        <img class="product-img" 
+             src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop&auto=format" 
+             alt="Balo chống gù"
+             onerror="this.src='https://cdn-icons-png.flaticon.com/512/2991/2991119.png'">
+        <div class="product-name">Balo chống gù</div>
+        <div class="product-desc">Quai đeo êm, nhiều ngăn, chống nước</div>
+        <div class="price">285.000đ <small>350.000đ</small></div>
+        <button class="btn-add"><i class="fas fa-cart-plus"></i> Thêm vào giỏ</button>
+      </div>
+
+    </div>
+
+    <div class="footer-note">
+      <i class="fas fa-truck"></i> Miễn phí giao hàng cho đơn từ 200.000đ &nbsp;|&nbsp; 
+      <i class="fas fa-undo-alt"></i> Đổi trả trong 7 ngày &nbsp;|&nbsp; 
+      <i class="fas fa-phone-alt"></i> Hotline: 1900 1234
+    </div>
+  </div>
+</body>
+</html>
